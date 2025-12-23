@@ -1,0 +1,19 @@
+<svg fill="none" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 398" class="design-iconfont">
+  <path fill="url(#acqjxnszq__paint0_linear_151_223)" d="M0 0H750V398H0z"/>
+  <g clip-path="url(#acqjxnszq__clip0_151_223)">
+    <path d="M446.619 -69C388.364 -39.9258 273.972 31.5229 282.446 84.7239C293.038 151.225 415.806 129.54 537.612 116.529C659.417 103.518 661.343 148.334 577.09 261.097C492.837 373.86 613.68 393.617 787 317.478" stroke="url(#acqjxnszq__paint1_linear_151_223)" stroke-opacity=".1" stroke-width="50"/>
+  </g>
+  <defs>
+    <linearGradient id="acqjxnszq__paint0_linear_151_223" x1="375" y1="398" x2="375" y2=".00000681" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2A95F8" stop-opacity="0"/>
+      <stop offset="1" stop-color="#215CF5" stop-opacity=".07"/>
+    </linearGradient>
+    <linearGradient id="acqjxnszq__paint1_linear_151_223" x1="787" y1="363" x2="281.535" y2="-68.4548" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#76DEFF" stop-opacity=".5"/>
+      <stop offset="1" stop-color="#003AAD"/>
+    </linearGradient>
+    <clipPath id="acqjxnszq__clip0_151_223">
+      <path fill="#fff" d="M0 0H750V398H0z"/>
+    </clipPath>
+  </defs>
+</svg>

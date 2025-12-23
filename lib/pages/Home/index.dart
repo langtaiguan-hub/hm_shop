@@ -34,13 +34,24 @@ class _HomeViewState extends State<HomeView> {
   ];
   // 获取滚动容器的内容
   final ScrollController _scrollController = ScrollController();
+
+  final List<CategoryItem> _categoryList = [];
+  // ignore: unused_field
+  PreferenceItem _preferenceItem = PreferenceItem(
+    id: "",
+    title: "",
+    subTypes: [],
+  );
+
+  // 特惠推荐列表
+  // 获取滚动容器的内容
   List<Widget> _getScrollChildern() {
     return [
       SliverToBoxAdapter(child: Hmslider(bannerList: _bannerList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: HmCategory()),
+      SliverToBoxAdapter(child: HmCategory(categoryList: _categoryList)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
-      SliverToBoxAdapter(child: Hmsuggesrion()),
+      SliverToBoxAdapter(child: Hmsuggesrion(preferenceItem: _preferenceItem)),
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       SliverToBoxAdapter(
         child: Padding(
@@ -62,10 +73,35 @@ class _HomeViewState extends State<HomeView> {
 
   // 初始化数据
   Future<void> _initData() async {
+    // 获取轮播图数据
+    await _getBannerList();
+    // 获取分类列表数据
+    await _getCategoryList();
+    // 获取特惠推荐列表
+    await _getPreferenceList();
+  }
+
+  // 获取轮播图数据
+  Future<void> _getBannerList() async {
     List<BannerItem> bannerList = await getBannerListApi();
     setState(() {
       _bannerList.addAll(bannerList);
     });
+  }
+
+  // 获取分类列表数据
+  Future<void> _getCategoryList() async {
+    List<CategoryItem> categoryList = await getCategoryListApi();
+    print(categoryList);
+    setState(() {
+      _categoryList.addAll(categoryList);
+    });
+  }
+
+  // 获取特惠推荐列表
+  Future<void> _getPreferenceList() async {
+    _preferenceItem = await getPreferenceListApi();
+    setState(() {});
   }
 
   @override
