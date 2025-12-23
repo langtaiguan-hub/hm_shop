@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hm_shop/api/home.dart';
 import 'package:hm_shop/components/Home/HmHot.dart';
 import 'package:hm_shop/components/Home/HmMoreList.dart';
 import 'package:hm_shop/components/Home/HmSlider.dart';
@@ -14,22 +15,22 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
- final List<BannerItem> _bannerList = [
-    BannerItem(
-      imgUrl:
-          "https://sys-mgr.oss-cn-beijing.aliyuncs.com/mall/2025/12/186943b5e2e4b00ef9cbdd6093.jpeg",
-      id: "1",
-    ),
-    BannerItem(
-      imgUrl:
-          "https://sys-mgr.oss-cn-beijing.aliyuncs.com/mall/2025/12/186943b5d3e4b00ef9cbdd6091.jpeg",
-      id: "2",
-    ),
-    BannerItem(
-      imgUrl:
-          "https://sys-mgr.oss-cn-beijing.aliyuncs.com/mall/2025/12/1869439918e4b00ef9cbdd6074.jpeg",
-      id: "3",
-    ),
+  final List<BannerItem> _bannerList = [
+    // BannerItem(
+    //   imgUrl:
+    //       "https://sys-mgr.oss-cn-beijing.aliyuncs.com/mall/2025/12/186943b5e2e4b00ef9cbdd6093.jpeg",
+    //   id: "1",
+    // ),
+    // BannerItem(
+    //   imgUrl:
+    //       "https://sys-mgr.oss-cn-beijing.aliyuncs.com/mall/2025/12/186943b5d3e4b00ef9cbdd6091.jpeg",
+    //   id: "2",
+    // ),
+    // BannerItem(
+    //   imgUrl:
+    //       "https://sys-mgr.oss-cn-beijing.aliyuncs.com/mall/2025/12/1869439918e4b00ef9cbdd6074.jpeg",
+    //   id: "3",
+    // ),
   ];
   // 获取滚动容器的内容
   final ScrollController _scrollController = ScrollController();
@@ -57,6 +58,20 @@ class _HomeViewState extends State<HomeView> {
       SliverToBoxAdapter(child: SizedBox(height: 10)),
       HmMoreList(),
     ];
+  }
+
+  // 初始化数据
+  Future<void> _initData() async {
+    List<BannerItem> bannerList = await getBannerListApi();
+    setState(() {
+      _bannerList.addAll(bannerList);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _initData();
   }
 
   @override
