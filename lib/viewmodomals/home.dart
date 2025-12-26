@@ -33,8 +33,6 @@ class CategoryItem {
   }
 }
 
-
-
 // 首页特惠推荐 商品项模型类
 class PreferenceGoodsItem {
   final String? id;
@@ -136,4 +134,96 @@ class PreferenceItem {
   }
 }
 
+// 热推商品列表 主模型类
+class HotRecommendItem {
+  final String? id;
+  final String? title;
+  final List<PreferenceSubType>? subTypes;
+
+  HotRecommendItem({this.id, this.title, this.subTypes});
+
+  factory HotRecommendItem.fromJson(Map<String, dynamic> json) {
+    return HotRecommendItem(
+      id: json["id"] ?? "",
+      title: json["title"] ?? "",
+      subTypes: json["subTypes"] != null
+          ? List<PreferenceSubType>.from(
+              json["subTypes"].map((x) => PreferenceSubType.fromJson(x)),
+            )
+          : null,
+    );
+  }
+
+  @override
+  String toString() {
+    return 'HotRecommendItem{id: $id, title: $title, subTypes: $subTypes}';
+  }
+}
+
+// 一站式推荐列表 ViewModel 类
+class HotOnestopViewModel {
+  HotRecommendItem hotOnestopItem;
+
+  HotOnestopViewModel({HotRecommendItem? hotOnestopItem})
+    : hotOnestopItem =
+          hotOnestopItem ?? HotRecommendItem(id: "", title: "", subTypes: []);
+}
+
+// 1.json 商品数据模型类
+class ProductItem {
+  final String? id;
+  final String? name;
+  final double? price;
+  final String? picture;
+  final int? payCount;
+
+  ProductItem({
+    this.id,
+    this.name,
+    this.price,
+    this.picture,
+    this.payCount,
+  });
+
+  factory ProductItem.fromJson(Map<String, dynamic> json) {
+    return ProductItem(
+      id: json["id"] ?? "",
+      name: json["name"] ?? "",
+      price: (json["price"] ?? 0.0).toDouble(),
+      picture: json["picture"] ?? "",
+      payCount: json["payCount"] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "name": name,
+      "price": price,
+      "picture": picture,
+      "payCount": payCount,
+    };
+  }
+}
+
+// 1.json 商品列表模型类
+class ProductList {
+  final List<ProductItem>? items;
+
+  ProductList({this.items});
+
+  factory ProductList.fromJson(List<dynamic> json) {
+    return ProductList(
+      items: json != null
+          ? List<ProductItem>.from(
+              json.map((x) => ProductItem.fromJson(x)),
+            )
+          : null,
+    );
+  }
+
+  List<Map<String, dynamic>> toJson() {
+    return items?.map((item) => item.toJson()).toList() ?? [];
+  }
+}
 //flutter 必须强制转化 没有隐式转化

@@ -12,34 +12,42 @@ class HmCategory extends StatefulWidget {
 class _HmCategoryState extends State<HmCategory> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 100,
+      width: MediaQuery.of(context).size.width*0.9,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
+        physics: BouncingScrollPhysics(), // 添加弹性滚动效果
         itemBuilder: (context, index) {
           final categoryItem = widget.categoryList[index];
           return Container(
-            width: 80,
+            width: MediaQuery.of(context).size.width * 0.5, // 必须设置固定宽度
             height: 100,
             decoration: BoxDecoration(
               color: Color.fromARGB(255, 231, 232, 234),
               borderRadius: BorderRadius.circular(40),
             ),
             alignment: Alignment.center,
-            margin: EdgeInsets.symmetric(horizontal: 10),
-            child: Flex(
+            margin: EdgeInsets.only(right: 10), // 只保留右侧边距
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              direction: Axis.vertical,
               children: [
                 Image.network(
                   categoryItem.picture ?? '',
                   width: 40,
                   height: 40,
+                  fit: BoxFit.contain, // 确保图片适应容器
                 ),
-                Text(
-                  categoryItem.name ?? '',
-                  style: TextStyle(fontSize: 14, color: Colors.white),
+                SizedBox(height: 5), // 添加间距
+                Container(
+                  child: Text(
+                    categoryItem.name ?? '',
+                    style: TextStyle(fontSize: 12, color: Colors.white),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
               ],
             ),

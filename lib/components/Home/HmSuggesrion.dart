@@ -33,13 +33,13 @@ class _HmsuggesrionState extends State<Hmsuggesrion> {
               errorBuilder: (context, error, stackTrace) => Image.asset(
                 'lib/assets/tab/home_1.png',
                 fit: BoxFit.cover,
-                width: 100,
-                height: 140,
+                width: 60,
+                height: 80,
               ),
               list[index].picture ?? '',
               fit: BoxFit.cover,
-              width: 80,
-              height: 120,
+              width: 60,
+              height: 80,
             ),
           ),
           SizedBox(height: 10),
@@ -107,7 +107,7 @@ class _HmsuggesrionState extends State<Hmsuggesrion> {
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
         alignment: Alignment.center,
-        padding: EdgeInsets.all(12),
+        height: 200, // 添加固定高度
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           image: DecorationImage(
@@ -116,19 +116,35 @@ class _HmsuggesrionState extends State<Hmsuggesrion> {
           ),
         ),
         child: Column(
+          mainAxisSize: MainAxisSize.min, // 限制列大小
           children: [
-            _buildHeader(),
+            Container(
+              // 为头部添加容器限制
+              height: 40,
+              child: _buildHeader(),
+            ),
             SizedBox(height: 10),
-            Row(
-              children: [
-                _buildLeftItem(),
-                Expanded(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: _getChildrenList(),
+            Expanded(
+              // 使用Expanded确保内容有足够空间
+              child: Row(
+                children: [
+                  Container(
+                    // 为左侧项目添加固定宽度
+                    width: 100,
+                    child: _buildLeftItem(),
                   ),
-                ),
-              ],
+                  Expanded(
+                    child: Container(
+                      // 为右侧内容添加容器
+                      height: 140,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: _getChildrenList(),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),

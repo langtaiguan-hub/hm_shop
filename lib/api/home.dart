@@ -37,3 +37,60 @@ Future<PreferenceItem> getPreferenceListApi() async {
     return PreferenceItem();
   }
 }
+
+// 热推商品列表 API 函数
+Future<HotRecommendItem> getHotRecommendListApi() async {
+  try {
+    final data = await dioRequest.get(HttpConstants.HOT_INVOUGE_LIST);
+    if (data != null) {
+      return HotRecommendItem.fromJson(data);
+    } else {
+      print('热推商品列表API返回数据为空');
+      return HotRecommendItem();
+    }
+  } catch (e) {
+    print('获取热推商品列表失败: $e');
+    return HotRecommendItem();
+  }
+}
+
+// 一站式推荐列表 API 函数
+Future<HotOnestopViewModel> getHotOnestopListApi() async {
+  try {
+    final data = await dioRequest.get(HttpConstants.HOT_ONESTOP_LIST);
+    if (data != null) {
+      return HotOnestopViewModel(
+        hotOnestopItem: HotRecommendItem.fromJson(data),
+      );
+    } else {
+      print('一站式推荐列表API返回数据为空');
+      return HotOnestopViewModel();
+    }
+  } catch (e) {
+    print('获取一站式推荐列表失败: $e');
+    return HotOnestopViewModel();
+  }
+}
+
+// 获取推荐列表
+Future<ProductList> getRecommendListApi(
+  Map<String, int> map, {
+  Map<String, dynamic>? params,
+}) async {
+  try {
+    final data = await dioRequest.get(
+      HttpConstants.RECOMMEND_LIST,
+      params: params,
+    );
+    print('推荐列表API返回数据: $data');
+    if (data != null) {
+      return ProductList.fromJson(data);
+    } else {
+      print('推荐列表API返回数据为空');
+      return ProductList(items: []); // 修改这里
+    }
+  } catch (e) {
+    print('获取推荐列表失败: $e');
+    return ProductList(items: []); // 修改这里
+  }
+}
