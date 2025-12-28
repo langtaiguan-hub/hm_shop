@@ -112,7 +112,6 @@ class _HmhotState extends State<Hmhot> {
             ),
           ],
         ),
-        width: MediaQuery.of(context).size.width * 0.2, // 进一步减小宽度从0.3到0.25
         padding: EdgeInsets.all(8),
         child: _buildItem(item),
       );

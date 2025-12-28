@@ -36,6 +36,10 @@ class DioRequest {
   get(url, {params}) async {
     return _handleResponse(_dio.get(url, queryParameters: params));
   }
+  // post请求
+  post(url, {data}) async {
+    return _handleResponse(_dio.post(url, data: data));
+  }
 
   // 处理返回结果的函数
   _handleResponse(Future<Response<dynamic>> task) async {

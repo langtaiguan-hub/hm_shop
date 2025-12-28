@@ -1,16 +1,21 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hm_shop/stores/UserController.dart';
 import 'package:hm_shop/viewmodomals/home.dart';
 
 class Hmslider extends StatefulWidget {
   const Hmslider({super.key, required this.bannerList});
 
   final List<BannerItem> bannerList;
+
   @override
   State<Hmslider> createState() => _HmsliderState();
 }
 
 class _HmsliderState extends State<Hmslider> {
+  final UserController _userController = Get.put(UserController());
+
   int _currentIndex = 0;
   final CarouselSliderController _carouselSliderController =
       CarouselSliderController();
@@ -36,6 +41,7 @@ class _HmsliderState extends State<Hmslider> {
         onPageChanged: (index, reason) {
           setState(() {
             _currentIndex = index;
+            _userController.updateUserInfo({'nickName': '请搜索拉'});
           });
         },
       ),
@@ -44,26 +50,31 @@ class _HmsliderState extends State<Hmslider> {
 
   Widget _getSearch() {
     return Positioned(
-      top: 10,
+      top: MediaQuery.of(context).padding.top,
       left: 0,
       right: 0,
-      child: Padding(
-        padding: EdgeInsetsGeometry.all(10),
-        child: Container(
-          alignment: Alignment.centerLeft,
-          padding: EdgeInsets.symmetric(horizontal: 40),
-          height: 50,
-          decoration: BoxDecoration(
-            color: Color.fromRGBO(0, 0, 0, 0.4),
-            borderRadius: BorderRadius.circular(25),
-          ),
-          child: Row(
-            children: [
-              SizedBox(width: 10),
-              Icon(Icons.search, color: Colors.white),
-              SizedBox(width: 10),
-              Text('搜索商品', style: TextStyle(fontSize: 16, color: Colors.white)),
-            ],
+      child: Obx(
+        () => Padding(
+          padding: EdgeInsetsGeometry.all(10),
+          child: Container(
+            alignment: Alignment.centerLeft,
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            height: 50,
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(0, 0, 0, 0.4),
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Row(
+              children: [
+                SizedBox(width: 10),
+                Icon(Icons.search, color: Colors.white),
+                SizedBox(width: 10),
+                Text(
+                  _userController.userInfo.value?['nickName'] ?? '搜索商品',
+                  style: TextStyle(fontSize: 16, color: Colors.white),
+                ),
+              ],
+            ),
           ),
         ),
       ),

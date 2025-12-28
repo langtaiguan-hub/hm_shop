@@ -177,13 +177,7 @@ class ProductItem {
   final String? picture;
   final int? payCount;
 
-  ProductItem({
-    this.id,
-    this.name,
-    this.price,
-    this.picture,
-    this.payCount,
-  });
+  ProductItem({this.id, this.name, this.price, this.picture, this.payCount});
 
   factory ProductItem.fromJson(Map<String, dynamic> json) {
     return ProductItem(
@@ -215,9 +209,7 @@ class ProductList {
   factory ProductList.fromJson(List<dynamic> json) {
     return ProductList(
       items: json != null
-          ? List<ProductItem>.from(
-              json.map((x) => ProductItem.fromJson(x)),
-            )
+          ? List<ProductItem>.from(json.map((x) => ProductItem.fromJson(x)))
           : null,
     );
   }

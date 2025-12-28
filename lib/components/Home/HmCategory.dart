@@ -14,7 +14,7 @@ class _HmCategoryState extends State<HmCategory> {
   Widget build(BuildContext context) {
     return Container(
       height: 100,
-      width: MediaQuery.of(context).size.width*0.9,
+      width: MediaQuery.of(context).size.width * 0.9,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         physics: BouncingScrollPhysics(), // 添加弹性滚动效果

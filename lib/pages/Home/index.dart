@@ -212,7 +212,7 @@ class _HomeViewState extends State<HomeView> {
         setState(() {
           _paddingTop = 0;
         });
-      }, 
+      },
       child: AnimatedContainer(
         padding: EdgeInsets.only(top: _paddingTop),
         duration: Duration(milliseconds: 300),
