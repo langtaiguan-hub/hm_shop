@@ -73,13 +73,11 @@ class _HmhotState extends State<Hmhot> {
             SizedBox(height: 2),
             _items.isNotEmpty
                 ? Container(
-                    width: double.infinity, // 确保容器宽度适应父容器
-                    child: Expanded(
-                      child: Row(
-                        mainAxisAlignment:
-                            MainAxisAlignment.spaceBetween, // 改为start对齐
-                        children: _buildItemList(),
-                      ),
+                    width: double.infinity,
+                    height: 150, // 添加固定高度
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: _buildItemList(),
                     ),
                   )
                 : Container(
@@ -98,22 +96,27 @@ class _HmhotState extends State<Hmhot> {
 
   // 构建商品列表
   List<Widget> _buildItemList() {
-    return _items.map((item) {
-      return Container(
-        height: 150,
-
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black12,
-              blurRadius: 4,
-              offset: Offset(0, 2),
-            ),
-          ],
+    return _items.asMap().entries.map((entry) {
+      final item = entry.value;
+      final index = entry.key;
+      return Expanded(
+        key: Key('item_$index'),
+        child: Container(
+          height: 150,
+          margin: EdgeInsets.symmetric(horizontal: 5), // 减小边距
+          decoration: BoxDecoration(
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 4,
+                offset: Offset(0, 2),
+              ),
+            ],
+          ),
+          padding: EdgeInsets.all(5),
+          child: _buildItem(item),
         ),
-        padding: EdgeInsets.all(8),
-        child: _buildItem(item),
       );
     }).toList();
   }
@@ -124,61 +127,63 @@ class _HmhotState extends State<Hmhot> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Container(
-          constraints: BoxConstraints(maxWidth: 80, maxHeight: 80), // 添加最大约束
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(8),
-            child: Image.network(
-              item.picture ?? '',
-              fit: BoxFit.contain, // 改为contain确保图片适应容器
-              width: double.infinity, // 使用自适应宽度
-              height: double.infinity, // 使用自适应高度
-              loadingBuilder: (context, child, loadingProgress) {
-                if (loadingProgress == null) {
-                  return child;
-                }
-                return Center(
-                  child: CircularProgressIndicator(
-                    value: loadingProgress.expectedTotalBytes != null
-                        ? loadingProgress.cumulativeBytesLoaded /
-                              loadingProgress.expectedTotalBytes!
-                        : null,
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) {
-                return Container(
-                  color: Colors.grey[200],
-                  child: Icon(Icons.image, color: Colors.grey[400], size: 30),
-                );
-              },
+        Expanded(
+          flex: 3,
+          child: Container(
+            width: double.infinity,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.network(
+                item.picture ?? '',
+                fit: BoxFit.contain,
+                width: double.infinity,
+                height: double.infinity,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) {
+                    return child;
+                  }
+                  return Center(
+                    child: CircularProgressIndicator(
+                      value: loadingProgress.expectedTotalBytes != null
+                          ? loadingProgress.cumulativeBytesLoaded /
+                                loadingProgress.expectedTotalBytes!
+                          : null,
+                    ),
+                  );
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Colors.grey[200],
+                    child: Icon(Icons.image, color: Colors.grey[400], size: 30),
+                  );
+                },
+              ),
             ),
           ),
         ),
         SizedBox(height: 8),
-        Container(
-          // 移除Expanded，使用固定高度容器
-          height: 40, // 固定高度
+        Expanded(
+          flex: 2,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                // 为商品名称添加固定高度容器
-                height: 20,
+              Flexible(
                 child: Text(
                   item.name ?? '商品名称',
                   style: TextStyle(
-                    fontSize: 10, // 减小字体大小
+                    fontSize: 10,
                     color: const Color.fromARGB(255, 51, 51, 51),
                     fontWeight: FontWeight.bold,
                   ),
-                  maxLines: 2, // 允许最多2行
+                  maxLines: 2,
                   overflow: TextOverflow.ellipsis,
                   textAlign: TextAlign.center,
                 ),
               ),
-              SizedBox(height: 2), // 减小间距
+              SizedBox(height: 2),
               Text(
                 "¥${item.price ?? '0.00'}",
                 style: TextStyle(
