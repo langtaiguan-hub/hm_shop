@@ -24,7 +24,7 @@ class DioRequest {
           }
           handler.reject(DioException(requestOptions: response.requestOptions));
         },
-        onError: (DioError e, handler) {
+        onError: (DioException e, handler) {
           // 在发生错误时做一些事情
           return handler.reject(e);
         },
@@ -33,16 +33,16 @@ class DioRequest {
   }
 
   // get请求
-  get(url, {params}) async {
+  Future<dynamic> get(url, {params}) async {
     return _handleResponse(_dio.get(url, queryParameters: params));
   }
   // post请求
-  post(url, {data}) async {
+  Future<dynamic> post(url, {data}) async {
     return _handleResponse(_dio.post(url, data: data));
   }
 
   // 处理返回结果的函数
-  _handleResponse(Future<Response<dynamic>> task) async {
+  Future<dynamic> _handleResponse(Future<Response<dynamic>> task) async {
     try {
       Response<dynamic> res = await task;
       if (res.data["code"] != GlobalConstant.SUCCESS_CODE) {

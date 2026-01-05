@@ -8,13 +8,13 @@ class UpdateDialog extends StatelessWidget {
   final VoidCallback? onCancel;
 
   const UpdateDialog({
-    Key? key,
+    super.key,
     required this.latestVersion,
     required this.updateLog,
     required this.isMandatory,
     required this.onUpdate,
     this.onCancel,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -74,11 +74,11 @@ class UpdateDialog extends StatelessWidget {
           ),
         TextButton(
           onPressed: onUpdate,
-          child: const Text('立即更新'),
           style: TextButton.styleFrom(
             foregroundColor: Colors.white,
             backgroundColor: Colors.blue,
           ),
+          child: const Text('立即更新'),
         ),
       ],
     );

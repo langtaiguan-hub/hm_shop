@@ -70,7 +70,7 @@ class _HmsliderState extends State<Hmslider> {
                 Icon(Icons.search, color: Colors.white),
                 SizedBox(width: 10),
                 Text(
-                  _userController.userInfo.value?['nickName'] ?? '搜索商品',
+                  _userController.userInfo.value['nickName'] ?? '搜索商品',
                   style: TextStyle(fontSize: 16, color: Colors.white),
                 ),
               ],

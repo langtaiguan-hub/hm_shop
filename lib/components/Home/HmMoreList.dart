@@ -39,7 +39,8 @@ class _HmMoreListState extends State<HmMoreList> {
   // 构建子项的内容部分
   Widget _getContentChildren(int index) {
     return Container(
-      constraints: BoxConstraints(maxHeight: 100), // 限制最大高度
+      width: double.infinity,
+      height: 100,
       child: ClipRRect(
         borderRadius: BorderRadius.circular(10),
         child: AspectRatio(
@@ -72,7 +73,7 @@ class _HmMoreListState extends State<HmMoreList> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Container(
+          SizedBox(
             height: 20, // 固定高度
             child: Text(
               widget.productList.items![index].name ?? "",

@@ -208,9 +208,7 @@ class ProductList {
 
   factory ProductList.fromJson(List<dynamic> json) {
     return ProductList(
-      items: json != null
-          ? List<ProductItem>.from(json.map((x) => ProductItem.fromJson(x)))
-          : null,
+      items: List<ProductItem>.from(json.map((x) => ProductItem.fromJson(x))),
     );
   }
 

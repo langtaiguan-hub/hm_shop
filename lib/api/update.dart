@@ -1,5 +1,4 @@
 // 模拟更新检查 API 服务
-import 'dart:convert';
 
 // 模拟从服务器获取最新版本信息
 Future<Map<String, dynamic>> getUpdateInfo() async {

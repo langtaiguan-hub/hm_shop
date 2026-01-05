@@ -15,7 +15,7 @@ class _HmsuggesrionState extends State<Hmsuggesrion> {
     if (widget.preferenceItem.subTypes?.isEmpty ?? true) {
       return [];
     }
-    return widget.preferenceItem.subTypes?.first?.goodsItems?.items
+    return widget.preferenceItem.subTypes?.first.goodsItems?.items
             ?.take(3)
             .toList() ??
         [];
@@ -118,7 +118,7 @@ class _HmsuggesrionState extends State<Hmsuggesrion> {
         child: Column(
           mainAxisSize: MainAxisSize.min, // 限制列大小
           children: [
-            Container(
+            SizedBox(
               // 为头部添加容器限制
               height: 40,
               child: _buildHeader(),
@@ -126,15 +126,16 @@ class _HmsuggesrionState extends State<Hmsuggesrion> {
             SizedBox(height: 10),
             Expanded(
               // 使用Expanded确保内容有足够空间
-              child: Row(
+              child: Flex(
+                direction: Axis.horizontal,
                 children: [
-                  Container(
+                  SizedBox(
                     // 为左侧项目添加固定宽度
                     width: 100,
                     child: _buildLeftItem(),
                   ),
                   Expanded(
-                    child: Container(
+                    child: SizedBox(
                       // 为右侧内容添加容器
                       height: 140,
                       child: Row(

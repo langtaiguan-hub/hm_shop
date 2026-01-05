@@ -2,22 +2,22 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class TokenManager {
   // 初始化
-  init() async {
+  Future<void> init() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', '123456');
   }
 
-  setToken(String token) async {
+  Future<void> setToken(String token) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
   }
 
-  getToken() async {
+  Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString('token') ?? '';
   }
 
-  removeToken() async {
+  Future<void> removeToken() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.remove('token');
   }
